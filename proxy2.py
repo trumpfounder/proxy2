@@ -430,11 +430,9 @@ class ProxyRequestHandler(BaseHTTPRequestHandler):
 
 
 def test(HandlerClass=ProxyRequestHandler, ServerClass=ThreadingHTTPServer, protocol="HTTP/1.1"):
-    if sys.argv[1:]:
-        port = int(sys.argv[1])
-    else:
-        port = 8080
-    server_address = ("localhost", port)
+    host = sys.argv[1] if len(sys.argv) > 1 else ''
+    port = int(sys.argv[2]) if len(sys.argv) > 2 else 8080
+    server_address = (host, port)
 
     HandlerClass.protocol_version = protocol
     #HandlerClass.chain_proxy = "localhost:9182"
